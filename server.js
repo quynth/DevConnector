@@ -7,7 +7,7 @@ const posts = require("./routes/api/posts");
 const app = express();
 
 //Body parser config
-app.use(express.urlencoded);
+app.use(express.urlencoded());
 app.use(express.json());
 
 //Db config
