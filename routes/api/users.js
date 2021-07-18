@@ -47,7 +47,7 @@ router.post("/register", (req, res) => {
 //@desc    Login a user and generate a token
 //@access  Public
 
-router.post("login", (req, res) => {
+router.post("/login", (req, res) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
