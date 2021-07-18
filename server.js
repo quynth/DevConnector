@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const keys = require("./config/keys");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
@@ -17,7 +18,11 @@ mongoose
   .then(() => console.log("MongoDb connected"))
   .catch((err) => console.log("err"));
 
-// Let's write our first route
+//Passport config
+app.use(passport.initialize());
+require("./config/passport")(passport);
+
+//Let's write our first route
 app.get("/", (req, res) => res.send("Hello World!"));
 
 //Use routes
