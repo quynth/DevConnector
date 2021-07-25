@@ -13,12 +13,12 @@ const validateRegisterInput = require('../../validation/register');
 //@access  Public
 router.post('/register', (req, res) => {
   //validation
-  const {errors, isValid} validateRegisterInput(req.body);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
-  if(!isValid){
+  if (!isValid) {
     return res.status(400).json(errors);
   }
-  
+
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (user) {
@@ -93,11 +93,12 @@ router.post('/login', (req, res) => {
 //@route   POST  api/users/current
 //@desc    Return current user info
 //@access  Private
-router.get('/current', 
-passport.authenticate('jwt', {session: false}),
-(req, res) => {
-  res.json(req.user);
-
-});
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.json(req.user);
+  }
+);
 
 module.exports = router;
