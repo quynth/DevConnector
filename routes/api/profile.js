@@ -7,6 +7,10 @@ const passport = require('passport');
 const Profile = require('../../models/Profile');
 // Load User Model
 const User = require('../../models/User');
+// Load Validation
+const validateProfileInput = require('../../validation/profile');
+const validateExperienceInput = require('../../validation/experience');
+const validateEducationInput = require('../../validation/education');
 
 // @route   GET api/profile
 // @desc    Get current users profile
