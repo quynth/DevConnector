@@ -11,17 +11,29 @@ import Login from './components/auth/Login';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
 import { SET_CURRENT_USER } from './actions/types';
+import { logoutUser } from './actions/authActions';
 
 if (localStorage.jwtToken) {
-  //Set token to auth header
-  setAuthToken(localStorage.jwtToken);
-
   //Decode token
   const decoded = jwt_decode(localStorage.jwtToken);
-  store.dispatch({
-    type: SET_CURRENT_USER,
-    payload: decoded,
-  });
+
+  //Check for expiry of the token
+  const CurrentTime = Date.now() / 1000;
+  if (decoded.exp < CurrentTime) {
+    //Expired
+    //Logout user
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
+  } else {
+    //Set token to auth header
+    setAuthToken(localStorage.jwtToken);
+
+    //Dispatch
+    store.dispatch({
+      type: SET_CURRENT_USER,
+      payload: decoded,
+    });
+  }
 }
 class App extends Component {
   render() {

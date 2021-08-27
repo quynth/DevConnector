@@ -21,7 +21,7 @@ export const loginUser = (userData) => (dispatch) => {
   axios
     .post('/api/users/login', userData)
     .then((res) => {
-      //Save the token to the local storage
+      //Save the token to the localstorage
       const { token } = res.data; //const token = res.data.token
       localStorage.setItem('jwtToken', token);
 
@@ -41,4 +41,18 @@ export const loginUser = (userData) => (dispatch) => {
         payload: err.response.data,
       })
     );
+};
+
+export const logoutUser = () => (dispatch) => {
+  //Remove from localstorage
+  localStorage.removeItem('jwtToken');
+
+  //Remove auth header
+  setAuthToken(false);
+
+  //Clear out user data from redux store
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: {},
+  });
 };
