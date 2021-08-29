@@ -10,7 +10,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import store from './store';
 import setAuthToken from './utils/setAuthToken';
-import { SET_CURRENT_USER } from './actions/types';
+import { SET_USER } from './actions/types';
 import { logoutUser } from './actions/authActions';
 
 import PrivateRoute from './components/common/PrivateRoute';
@@ -43,7 +43,7 @@ if (localStorage.jwtToken) {
 
     //Dispatch
     store.dispatch({
-      type: SET_CURRENT_USER,
+      type: SET_USER,
       payload: decoded,
     });
   }
